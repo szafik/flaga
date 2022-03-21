@@ -1,0 +1,16 @@
+<!DOCTYPE>
+<html>
+<head>
+</head>
+
+<body>
+    {% for postac, opis, ilosc_slow in opisy_postaci %}
+        <h1>{{postac}}</h1>
+        <p>{{opis}}</p>
+        <p>{{ilosc_slow}}</p>
+    {% endfor %}
+    <p>{{words}}</p>
+    <a href="/">Powrót do strony głownej</a>
+</body>
+
+</html>
