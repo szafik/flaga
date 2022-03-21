@@ -2,31 +2,15 @@
 
 ## Etap 7 - przygotuj serwer, postaw stronę www i powieś Flagę - wersja ASAP
 
-**1. Przygotujesz serwer.** Zupdatujemy i poinstalujemy trochę programów, w tym:
-- git'a
-- nginx'a
-- nano
-- program do tworzenia środowisk programistycznych venv
-
-**2. Pobierzesz kod z repozytorium [Flaga](https://github.com/ZPXD/flaga)**
-- uzupełnimy plik z danymi o nazwę przygotowanej domeny
-- automatycznie "poprozkładamy" pliki konfigurujące nginx i gunicorn we właściwych miejscach
-
-**3. Uruchomisz "usługę" aplikacji strony www** 
-
-tak aby była wystawiona w internecie i zobaczysz swoją stronę www sieci pod linkiem domeny. 
-
 [Obejrzyj film jaks przygotować serwer, postawić stronę i powiesić flagę w wersji ASAP (w 5 minut)]()
 
-
-
-#### PS: Jeżeli uznasz, że potrzebujesz bardziej wyczerpujących wyjaśnień i mocniejszych doświadczeń, wybierz:
+#### Jeżeli uznasz, że potrzebujesz bardziej wyczerpujących wyjaśnień i mocniejszych doświadczeń, wybierz:
 
 [Etap 7 - droga Klasyczna - Instrukcje]( http://bityl.pl/BcfxJ)
 
 I postaw cały serwer ręcznie, komenda po komendzie ucząc się po drodze Linuxa, a to na Linuxowych serwerach będą śmigały nasze skrypty, więc jest to absolutny fundament.
 
-#### Do dzieła.
+# Droga ASAP (Flaga w 5 minut):
 
 #### Cel:
 - Postaw stronę www: niech będzie widoczna w internecie pod adresem Twojej domeny.
@@ -36,16 +20,11 @@ I postaw cały serwer ręcznie, komenda po komendzie ucząc się po drodze Linux
 #### Wsparcie:
 
 [Pomoc na discordzie dla problemów związanych z Etapem 7](https://discord.gg/S5bN7TCAYq)
-
-
-# Droga ASAP (Flaga w 5 minut):
- 
  
 **Słowem wstępu: Gdyby coś poszło nie tak, to można zrestartować serwer do ustawień początkowych:**
 [Restart](http://bityl.pl/Bmvwu). Zaczynajmy:
 
-
-Po zalogowaniu na serwer:
+Po zalogowaniu na serwer przy użyciu VSCode:
 
 #### 1. wejdź na root (utwórz go jeżeli jeszcze nie robiłeś).
 Powinieneś być już root. Robiliśmy to w [Etap 4 w kroku 6](https://github.com/ZPXD/flaga/blob/main/instrukcje/etap_4_3_zdobadz_serwer_polaczenie.md). Sprawdź to:
@@ -118,17 +97,43 @@ Jeżeli jesteś w Home i wkleiłeś to o co prosiłem wcześniej, to zobaczysz c
 
 ![foto](foty_do_instrukcji/dk_11.png)
 
-#### 11. Edytuj plik wstawiając swoje adresy IP, popraw nazwę klucza i zmień nazwę użytkownika w 2gim Hoście. Zapisz plik.
+#### 10. Kliknij aby przejść dalej w terminalu instalacji ASAP.
+
+Będzie tam fragment pliku Host do wklejenia. Będzie wyglądał podobnie do:
+
+```
+Host xd
+  HostName 1.1.1.1
+  User moja_nazwa_uzytkownika
+  IdentityFile "~/.ssh/tu_wstaw_nazwe_klucza"
+```
+
+#### 11. Edytuj plik config na swoim komputerze wstawiając swoje adresy IP, popraw nazwę klucza i zmień nazwę użytkownika w 2gim Hoście. Zapisz plik.
 
 ![foto](foty_do_instrukcji/dk_12.png)
 
 ![foto](foty_do_instrukcji/dk_13.png)
 
 
+Sprawdź teraz połączenie przez SSH-TARGETS. Kliknij plusik i napisz "ssh xd" Jeżeli się połączysz to znaczy, że wszystko działa i przejdź do kroku 12. W przeciwnym razie, możliwe, że:
+a) Twój plik known_hosts w folderze .ssh jest zawalony - skasuj go.
+b) Twój klucz ma zbyt słabe uprawnienia z uwagi na to, że pobieraliśmy go przez VSCode. Wtedy użyj scp.
 
-Gotowe! Pobaw się flagą, zmień coś (zobacz etap 8 w tym pliku) lub idź dalej. 
+Wejdź do swojego folderu .ssh na komputerze u siebie i otwórz terminal/powershell (w  windowsie: kliknij w zakładkę z adresem i wpisz powershell, nacisnij enter).
 
+W terminalu/powershellu wpisz komendę:
 
+Dla serwerów na home:
+```
+scp root@$TU_WSTAW_IP_SERWERA:/home/TU_WSTAW_NAZWE_UZYTKOWNIKA/.ssh/$klucz $klucz
+```
+
+Dla serwerów na AWS: (zamień nazwę klucza 'klucz_xd.pem' na inna, jeżeli inaczej nazwałeś swój klucz do serwera na AWS):
+```
+scp -i klucz_xd.pem ubuntu@$TU_WSTAW_IP_SERWERA:/home/ubuntu/.ssh/$klucz $klucz
+```
+
+I spróbuj połączyć się przez VSCode znowu (cofnij się do instrukcji wyżej, jeżeli nie pamiętasz jak to zrobić). Jeżeli masz problem, napisz na discordzie.
 
 #### 12. Flaga.
 
@@ -144,14 +149,13 @@ Gotowe! Pobaw się flagą, zmień coś (zobacz etap 8 w tym pliku) lub idź dale
 
 #### 1. Edytuj plik tekstowy którego treść widać na Twojej stronie.
 
-Otwórz folder z kodem Flagi na serwerze w nowym oknie i otwórz Terminal.
-
+Otwórz folder z kodem Flagi na serwerze w nowym oknie i otwórz plik z tekstem flagi. Edytuj go, zapisz i zobacz co się stanie na stronie www.
+```
+/var/www/flaga/dane/xd.txt
+```
 
 Urządź się tu :) Będąc dalej na serwerze, w folderze /var/www/flaga edytuj zawartość pliku xd.txt. Dodaj tam coś od siebie.
-```
-cd /var/www/flaga
-nano dane/xd.txt
-```
+
 
 #### 2. Zobaczy czy na stronie jest nowa treść!
 
@@ -168,19 +172,15 @@ Ostatnie co zostało, to edycja zakładki /xd flagi. Twoja flaga aby przejść d
 
 Wejdź w przeglądarce na adres swojej strony www i dopisz **/xd** - to Twoja zakładka /xd.
 
-Bedąc dalej w folderze /var/www/flaga edytuj plik templates/xd.html. Zobacz, jest tam w 12 linii "xDDD". Zostaw xD (z dowolną ilością "D") i: dodaj coś od siebie. Dzięki temu będzie można sprawdzić czy ukończyłeś ten etap. Zrób to tak:
+Bedąc dalej w folderze /var/www/flaga edytuj plik templates/xd.html. Zobacz, jest tam w 12 linii "xDDD". Zostaw xD (z dowolną ilością "D") i: dodaj coś od siebie. Dzięki temu będzie można sprawdzić czy ukończyłeś ten etap. Otwórz:
 ```
-nano templates/xd.html
+/var/www/flaga/templates/xd.html
 ```
 To plik html. Dodaj coś w 12 linii pomiędzy znakami ">" a "</h1>".
 ```
 <h1 style="text-align:center">xDDD TUTAJ OD SIEBIE DOPISZ :) </h1>
 ```
 Przeładuj:
-```
-sudo systemctl restart flaga.service
-```
-lub korzystając z gotowego skryptu:
 ```
 sudo python3 pomocnicze_skrypty/reload.py
 ```
